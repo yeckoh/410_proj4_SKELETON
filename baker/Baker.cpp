@@ -3,13 +3,10 @@
 #include "../includes/baker.h"
 using namespace std;
 
-Baker::Baker(int id):id(id)
-{
+Baker::Baker(int id):id(id) {
 }
 
-Baker::~Baker()
-{
-}
+Baker::~Baker() {}
 
 void Baker::bake_and_box(ORDER &anOrder) {
 	
