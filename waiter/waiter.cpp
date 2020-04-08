@@ -34,10 +34,10 @@ int Waiter::getNext(ORDER &anOrder) {
 //it is done using b_WaiterIsFinished
 void Waiter::beWaiter() {
 	ORDER next_order;
-	while (getNext(next_order)) {
+	while (getNext(next_order) == SUCCESS) {
 		lock_guard<mutex> using_pos_system(mutex_order_inQ);
 		order_in_Q.push(next_order);
-	} // failed getnext should set waiterisfinished
+	} // failed getnext / NO_ORDERS should set waiterisfinished
 	cv_order_inQ.notify_all();
 }
 
