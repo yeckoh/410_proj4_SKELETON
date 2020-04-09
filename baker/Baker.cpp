@@ -33,12 +33,10 @@ void Baker::bake_and_box(ORDER &anOrder) {
 	}
 }
 
-// sleep on the job until the waiter puts all their tickets in at the same time. Then get to work.
+// sleep on the job until the waiter puts all their tickets in at the same time. Then panic and lock them out of the pos_system.
 void Baker::beBaker() {
 	do {
 		unique_lock<mutex> ticket_rack_is_full(mutex_order_inQ);
-		// pretend to work until the waiters put 5million tickets in at once
-		// then panic and tell the front the pos_sys is dead now
 		while (!b_WaiterIsFinished && order_in_Q.empty())
 			cv_order_inQ.wait(ticket_rack_is_full);
 
@@ -46,7 +44,9 @@ void Baker::beBaker() {
 		while (!order_in_Q.empty()) {
 			lock_guard<mutex> working_on_this_ticket(mutex_order_outQ); // "don't mess me up, i got this ticket"
 			current_order = order_in_Q.front();
-			order_in_Q.pop(); // wewlad no data is returned, 2 operations for this. Just like last time.
+			order_in_Q.pop();
+			if (current_order.number_donuts < 0)
+				continue;
 			bake_and_box(current_order);
 			order_out_Vector.push_back(current_order);
 		}
