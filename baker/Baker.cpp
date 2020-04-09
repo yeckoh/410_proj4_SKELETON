@@ -3,11 +3,13 @@
  * prof: K. Perkins
  * proj: sp20 cs410 - p4: condition_variables, threads and stuff
  * date: 8 Apr. 2k20
+ * desc: define what a baker does and how to box donuts
  */
 #include <mutex>
 
 #include "../includes/baker.h"
 #include "../includes/externs.h"
+#include "../includes/constants.h"
 
 using namespace std;
 
@@ -16,7 +18,7 @@ Baker::Baker(int id):id(id) {}
 
 Baker::~Baker() {}
 
-
+// given an order, pack GLAZED donuts (as is directed by constants.h) into boxes holding 12 or less
 void Baker::bake_and_box(ORDER &anOrder) {
 	Box box_of_donuts;
 	DONUT fresh_donut;
@@ -31,6 +33,7 @@ void Baker::bake_and_box(ORDER &anOrder) {
 	}
 }
 
+// sleep on the job until the waiter puts all their tickets in at the same time. Then get to work.
 void Baker::beBaker() {
 	do {
 		unique_lock<mutex> ticket_rack_is_full(mutex_order_inQ);
