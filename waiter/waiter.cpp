@@ -3,6 +3,7 @@
  * prof: K. Perkins
  * proj: sp20 cs410 - p4: condition_variables, threads and stuff
  * date: 8 Apr. 2k20
+ * desc: define what a waiter does and how to take orders
  */
 #include <string>
 #include "stdlib.h"
@@ -18,6 +19,7 @@ Waiter::~Waiter() {}
 
 //gets next Order(s) from file_IO
 int Waiter::getNext(ORDER &anOrder) {
+	/// TODO: Exception handling
 	if(myIO.getNext(anOrder) != SUCCESS) {
 		b_WaiterIsFinished = true;
 		return NO_ORDERS;
