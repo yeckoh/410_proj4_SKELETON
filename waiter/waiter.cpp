@@ -19,12 +19,10 @@ Waiter::~Waiter() {}
 
 //gets next Order(s) from file_IO
 int Waiter::getNext(ORDER &anOrder) {
-	/// TODO: Exception handling
-	if(myIO.getNext(anOrder) != SUCCESS) {
+	int return_code;
+	if((return_code = myIO.getNext(anOrder)) != SUCCESS)
 		b_WaiterIsFinished = true;
-		return NO_ORDERS;
-	}
-	return SUCCESS;
+	return return_code;
 }
 
 //contains a loop that will get orders from filename one at a time
