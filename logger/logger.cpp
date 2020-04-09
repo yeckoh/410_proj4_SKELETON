@@ -1,3 +1,11 @@
+/*
+ *		 00960978
+ * prof: K. Perkins
+ * proj: sp20 cs410 - p4: condition_variables, threads and stuff
+ * date: 8 Apr. 2k20
+ * desc: define how to clear and write to the logfile
+ */
+
 #include "../includes/logger.h"
 using namespace std;
 
@@ -18,6 +26,7 @@ void Logger::clearlogfile() {
 		myFile.close();
 }
 
+// write to the logfile, or do nothing if we can't open the file
 void Logger::log(std::string data) {
 	lock_guard<mutex> scope_lock(m);
 	myFile.open(filename, std::fstream::app);
