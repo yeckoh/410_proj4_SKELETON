@@ -19,10 +19,11 @@ Waiter::~Waiter() {}
 
 //gets next Order(s) from file_IO
 int Waiter::getNext(ORDER &anOrder) {
-	if(myIO.getNext(anOrder))
-		return SUCCESS;
-	b_WaiterIsFinished = true;
-	return NO_ORDERS;
+	if(myIO.getNext(anOrder) != SUCCESS) {
+		b_WaiterIsFinished = true;
+		return NO_ORDERS;
+	}
+	return SUCCESS;
 }
 
 
@@ -37,7 +38,8 @@ void Waiter::beWaiter() {
 	while (getNext(next_order) == SUCCESS) {
 		lock_guard<mutex> using_pos_system(mutex_order_inQ);
 		order_in_Q.push(next_order);
-	} // failed getnext / NO_ORDERS should set waiterisfinished
-	cv_order_inQ.notify_all();
+		cv_order_inQ.notify_all();
+		getNext(next_order);
+	}
 }
 
