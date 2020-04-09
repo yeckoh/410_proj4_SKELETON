@@ -49,8 +49,9 @@ void Baker::beBaker() {
 			cv_order_inQ.wait(ticket_rack_is_full);
 
 		ORDER current_order;
-		while (!order_in_Q.empty) {
+		while (!order_in_Q.empty()) {
 			lock_guard<mutex> working_on_this_ticket(mutex_order_outQ); // "don't mess me up, i got this ticket"
+			// ticket_rack_is_full.lock();
 			current_order = order_in_Q.front();
 			order_in_Q.pop(); // wewlad no data is returned, 2 operations for this
 			// ticket_rack_is_full.unlock(); // let waiters put more orders in
