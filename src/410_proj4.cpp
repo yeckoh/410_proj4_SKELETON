@@ -1,3 +1,9 @@
+/*
+ * 		 00960978
+ * prof: K. Perkins
+ * proj: sp20 cs410 - p4: condition_variables, threads and stuff
+ * date: 8 Apr. 2k20
+ */
 #include <iostream>
 #include <queue>
 #include <thread>
@@ -86,7 +92,35 @@ void audit_results() {
 
 int main()
 {
-	//TODO your code here
+//#define WEEKDAY
+#ifdef WEEKDAY
+	thread t1(doWaiter, 1, "in1.txt");
+	thread t2(doBaker, 1);
+	thread t3(doBaker, 2);
+
+	t1.join();
+	t2.join();
+	t3.join();
+#endif
+#ifndef WEEKDAY
+//	thread t3(doWaiter, 1, "in1.txt");
+//	thread t10(doWaiter, 2, "in2.txt");
+	thread t1000(doWaiter, 3, "in3.txt");
+	thread t4(doBaker, 4);
+	thread t5(doBaker, 5);
+	thread t6(doBaker, 6);
+	//thread t600(doBaker, 123);
+
+//	t3.join();
+//	t10.join();
+	t1000.join();
+	//t600.join();
+	t4.join();
+	t5.join();
+	t6.join();
+#endif
+
+	audit_results();
 	return SUCCESS;
 }
 
