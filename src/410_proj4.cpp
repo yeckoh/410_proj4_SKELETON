@@ -103,18 +103,18 @@ int main()
 	t3.join();
 #endif
 #ifndef WEEKDAY
-//	thread t3(doWaiter, 1, "in1.txt");
-//	thread t10(doWaiter, 2, "in2.txt");
+	//thread t3(doWaiter, 1, "in1.txt");
+	//thread t10(doWaiter, 2, "in2.txt");
 	thread t1000(doWaiter, 3, "in3.txt");
 	thread t4(doBaker, 4);
-	thread t5(doBaker, 5);
-	thread t6(doBaker, 6);
-	//thread t600(doBaker, 123);
+	thread t5(doBaker, 55);
+	thread t6(doBaker, 6666);
+	thread t600(doBaker, 123);
 
-//	t3.join();
-//	t10.join();
+	//t3.join();
+	//t10.join();
 	t1000.join();
-	//t600.join();
+	t600.join();
 	t4.join();
 	t5.join();
 	t6.join();
